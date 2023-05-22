@@ -22,3 +22,6 @@ go.work
 
 #Hugo directory, for testing usage
 content
+
+# Built binary file
+fmlint
