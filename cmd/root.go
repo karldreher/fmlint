@@ -22,14 +22,8 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"bytes"
-	"fmt"
-	"log"
 	"os"
-	"path/filepath"
-	"sort"
 
-	"github.com/adrg/frontmatter"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -46,59 +40,11 @@ var rootCmd = &cobra.Command{
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		hasErr := false
-		//recursively walk the "content" directory and find all the files
-		//that have a frontmatter
-		folder := viper.GetString("folder")
-		err := filepath.Walk(folder,
-			func(path string, info os.FileInfo, err error) error {
-				if err != nil {
-					return err
-				}
-				if info.IsDir() {
-					return nil
-				}
-				check := checkTags(path)
-				if check == false {
-					hasErr = true
-				}
-				return nil
-			})
-		if err != nil {
-			log.Println(err)
-		}
-		if hasErr {
-			os.Exit(1)
+		if len(args) == 0 {
+			cmd.Help()
+			os.Exit(0)
 		}
 	},
-}
-
-func checkTags(file string) bool {
-	var matter struct {
-		Name string   `yaml:"name"`
-		Tags []string `yaml:"tags"`
-	}
-	b, err := os.ReadFile(file)
-	if err != nil {
-		log.Fatal(err)
-	}
-	rest, err := frontmatter.Parse(bytes.NewReader(b), &matter)
-	if err != nil {
-		fmt.Println(rest, err)
-	}
-
-	//Check if tags are sorted
-	sortedTags := sort.SliceIsSorted(matter.Tags, func(i, j int) bool {
-		return matter.Tags[i] < matter.Tags[j]
-	})
-	if sortedTags == false {
-
-		fmt.Println("Tags are not sorted.", "tags:", matter.Tags, "file:", file)
-		fmt.Println(file, matter)
-		//os.Exit(1)
-		return false
-	}
-	return true
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
