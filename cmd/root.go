@@ -39,7 +39,7 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "fmlint",
-	Short: "Lint your Hugo files to ensure that tags are sorted.",
+	Short: "Lint your front-matter markdown files to ensure that tags are sorted.",
 	Long: `
 
 `,
@@ -49,7 +49,8 @@ var rootCmd = &cobra.Command{
 		hasErr := false
 		//recursively walk the "content" directory and find all the files
 		//that have a frontmatter
-		err := filepath.Walk("./content",
+		folder := viper.GetString("folder")
+		err := filepath.Walk(folder,
 			func(path string, info os.FileInfo, err error) error {
 				if err != nil {
 					return err
@@ -112,14 +113,7 @@ func Execute() {
 func init() {
 	cobra.OnInitialize()
 
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.hugo-tagsort.yaml)")
-	rootCmd.PersistentFlags().StringP("file", "f", "", "YAML file to sort")
-	viper.BindPFlag("file", rootCmd.PersistentFlags().Lookup("file"))
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.fmlint.yaml)")
+	rootCmd.PersistentFlags().StringP("folder", "f", "./content", "Folder to recursively scan for front-matter markdown files.  Defaults to './content'")
+	viper.BindPFlag("folder", rootCmd.PersistentFlags().Lookup("folder"))
 }
