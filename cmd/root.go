@@ -33,8 +33,11 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "fmlint",
-	Short: "Lint your front-matter markdown files to ensure that tags are sorted.",
-	Long: `
+	Short: "Lint your front-matter markdown files.",
+	Long: `Lint your front-matter markdown files.
+This must be run with a subcommand, as detailed below.
+Currently, the only supported subcommand is "tags".
+  For more information, try 'fmlint tags --help'.
 
 `,
 	// Uncomment the following line if your bare application
@@ -60,6 +63,6 @@ func init() {
 	cobra.OnInitialize()
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.fmlint.yaml)")
-	rootCmd.PersistentFlags().StringP("folder", "f", "./content", "Folder to recursively scan for front-matter markdown files.")
+	rootCmd.PersistentFlags().StringP("folder", "f", "./content", "Folder to recursively scan for frontmatter markdown files.")
 	viper.BindPFlag("folder", rootCmd.PersistentFlags().Lookup("folder"))
 }
