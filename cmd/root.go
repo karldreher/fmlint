@@ -114,6 +114,6 @@ func init() {
 	cobra.OnInitialize()
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.fmlint.yaml)")
-	rootCmd.PersistentFlags().StringP("folder", "f", "./content", "Folder to recursively scan for front-matter markdown files.  Defaults to './content'")
+	rootCmd.PersistentFlags().StringP("folder", "f", "./content", "Folder to recursively scan for front-matter markdown files.")
 	viper.BindPFlag("folder", rootCmd.PersistentFlags().Lookup("folder"))
 }
