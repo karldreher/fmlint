@@ -44,9 +44,7 @@ var tagsCmd = &cobra.Command{
 		if err != nil {
 			log.Println(err)
 		}
-		if hasErr {
-			os.Exit(1)
-		}
+		handleErrors(hasErr)
 	},
 }
 
