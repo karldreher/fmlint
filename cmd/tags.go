@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"bytes"
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -59,7 +58,7 @@ func checkTags(file string) bool {
 	}
 	rest, err := frontmatter.Parse(bytes.NewReader(b), &matter)
 	if err != nil {
-		fmt.Println(rest, err)
+		log.Println(rest, err)
 	}
 
 	// Check if tags are sorted
@@ -67,9 +66,7 @@ func checkTags(file string) bool {
 		return matter.Tags[i] < matter.Tags[j]
 	})
 	if sortedTags == false {
-
-		fmt.Println("Tags are not sorted.", "tags:", matter.Tags, "file:", file)
-		fmt.Println(file, matter)
+		log.Println("Tags are not sorted.", "file:", file, "tags:", matter.Tags)
 		return false
 	}
 	return true
