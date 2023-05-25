@@ -35,7 +35,7 @@ var tagsCmd = &cobra.Command{
 					return nil
 				}
 				check := checkTags(path)
-				if check == false {
+				if !check {
 					hasErr = true
 				}
 				return nil
@@ -67,7 +67,7 @@ func checkTags(file string) bool {
 	sortedTags := sort.SliceIsSorted(matter.Tags, func(i, j int) bool {
 		return matter.Tags[i] < matter.Tags[j]
 	})
-	if sortedTags == false {
+	if !sortedTags {
 		log.Println("Tags are not sorted.", "file:", file, "tags:", matter.Tags)
 		return false
 	}

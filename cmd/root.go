@@ -44,7 +44,11 @@ Currently, the only supported subcommand is "tags".
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
-			cmd.Help()
+			err := cmd.Help()
+			if err != nil {
+				panic(err)
+			}
+
 			// This is configured to exit with a non-zero exit code,
 			// to prevent "false negative" results which appear to be passing, but are actually misconfigurations.
 			os.Exit(1)
