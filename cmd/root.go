@@ -71,8 +71,9 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.fmlint.yaml)")
 	rootCmd.PersistentFlags().StringP("folder", "f", "./content", "Folder to recursively scan for frontmatter markdown files.")
 	rootCmd.PersistentFlags().BoolP("warn-only", "", false, "Do not fail if errors are encountered, but print warnings.")
-
+	//nolint:errcheck
 	viper.BindPFlag("folder", rootCmd.PersistentFlags().Lookup("folder"))
+	//nolint:errcheck
 	viper.BindPFlag("warn", rootCmd.PersistentFlags().Lookup("warn-only"))
 
 }

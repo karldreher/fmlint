@@ -1,3 +1,0 @@
-issues:
-  exclude:
-    - "Error return value of `viper.BindPFlag` is not checked (errcheck)"
