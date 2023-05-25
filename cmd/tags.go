@@ -68,7 +68,7 @@ func checkTags(file string) bool {
 		return matter.Tags[i] < matter.Tags[j]
 	})
 	if !sortedTags {
-		log.Println("Tags are not sorted.", "file:", file, "tags:", matter.Tags)
+		log.Printf("Tags are not sorted.  {\"file\": %q, \"tags\": %q}", file, matter.Tags)
 		return false
 	}
 	return true
