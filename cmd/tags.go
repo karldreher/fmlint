@@ -47,6 +47,8 @@ var tagsCmd = &cobra.Command{
 	},
 }
 
+// checkTags checks if the tags are sorted alphabetically.
+// Returns true if sorted, false if not.
 func checkTags(file string) bool {
 	var matter struct {
 		Name string   `yaml:"name"`
