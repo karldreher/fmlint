@@ -19,9 +19,9 @@ func init() {
 var tagsCmd = &cobra.Command{
 	Use:         "tags",
 	Annotations: map[string]string{"rule-id": "tags-sorted"},
-	Short:       "Lint tags in frontmatter",
-	Long: `Tags are expected to be a YAML list.
-	This subcommand checks to ensure they are sorted alphabetically.`,
+	Short:       "Lint tag sorting",
+	Long: `Tags in frontmatter are expected to be a YAML list.
+	This command checks to ensure they are sorted alphabetically.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		hasErr := false
 		//recursively walk the "content" directory and find all the files
