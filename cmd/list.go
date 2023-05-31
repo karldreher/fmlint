@@ -6,10 +6,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var lintRule struct {
-	Rule map[string]string
-}
-
 // listCmd represents the list command
 var listCmd = &cobra.Command{
 	Use:   "list",
