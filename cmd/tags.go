@@ -52,7 +52,6 @@ var tagsCmd = &cobra.Command{
 // Returns true if sorted, false if not.
 func checkTags(file string) bool {
 	var matter struct {
-		Name string   `yaml:"name"`
 		Tags []string `yaml:"tags"`
 	}
 	b, err := os.ReadFile(file)
