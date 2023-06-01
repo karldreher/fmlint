@@ -41,6 +41,10 @@ var tagsCmd = &cobra.Command{
 				}
 				return nil
 			})
+		// TODO Reconcile this,
+		// when a rule is disabled handleErrors should not be called.
+		// Since handleErrors would also be responsible for warning if a rule caught errors,
+		// it is not neccessary to call handleErrors here in such case that a rule is disabled.
 		if err != nil && ruleEnabled("tags-sorted") {
 			log.Println(err)
 		}
