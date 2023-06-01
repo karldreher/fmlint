@@ -12,7 +12,6 @@ func TestMain(t *testing.T) {
 	for _, command := range cmdList {
 		//Print command name
 		ruleID := command.Annotations["rule-id"]
-		println(ruleID)
 		if ruleID == "" {
 			t.Errorf("command %s has no rule-id annotation", command.Name())
 			t.Fail()
