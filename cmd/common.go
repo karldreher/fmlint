@@ -22,3 +22,19 @@ func handleErrors(hasError bool) {
 	}
 
 }
+
+// ruleEnabled checks if a rule is enabled.
+// It expects a rule ID as input.
+// Rules are always enabled unless disabled in the config file.
+// Rules are disabled if they are in the yaml config file in the map "disabled_rules"."
+// If the rule is disabled, it returns false.
+// If the rule is enabled, it returns true.
+func ruleEnabled(ruleID string) bool {
+	config := viper.GetStringSlice("disabled_rules")
+	for _, rule := range config {
+		if rule == ruleID {
+			return false
+		}
+	}
+	return true
+}

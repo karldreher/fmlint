@@ -41,7 +41,7 @@ var tagsCmd = &cobra.Command{
 				}
 				return nil
 			})
-		if err != nil {
+		if err != nil && ruleEnabled("tags-sorted") {
 			log.Println(err)
 		}
 		handleErrors(hasErr)
