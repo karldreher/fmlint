@@ -23,32 +23,32 @@ var tagsCmd = &cobra.Command{
 	Long: `Tags in frontmatter are expected to be a YAML list.
 	This command checks to ensure they are sorted alphabetically.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		hasErr := false
-		//recursively walk the "content" directory and find all the files
-		//that have a frontmatter
-		folder := viper.GetString("folder")
-		err := filepath.Walk(folder,
-			func(path string, info os.FileInfo, err error) error {
-				if err != nil {
-					return err
-				}
-				if info.IsDir() {
+		if ruleEnabled("tags-sorted") {
+			hasErr := false
+			//recursively walk the "content" directory and find all the files
+			//that have a frontmatter
+			folder := viper.GetViper().GetString("folder")
+			err := filepath.Walk(folder,
+				func(path string, info os.FileInfo, err error) error {
+					if err != nil {
+						return err
+					}
+					if info.IsDir() {
+						return nil
+					}
+					check := checkTags(path)
+					if !check {
+						hasErr = true
+					}
 					return nil
-				}
-				check := checkTags(path)
-				if !check {
-					hasErr = true
-				}
-				return nil
-			})
-		// TODO Reconcile this,
-		// when a rule is disabled handleErrors should not be called.
-		// Since handleErrors would also be responsible for warning if a rule caught errors,
-		// it is not neccessary to call handleErrors here in such case that a rule is disabled.
-		if err != nil && ruleEnabled("tags-sorted") {
-			log.Println(err)
+				})
+			//Handle errors from the filepath walk
+			if err != nil {
+				log.Println(err)
+			}
+			//Handle errors from the checkTags function, if more than one error is present
+			handleErrors(hasErr)
 		}
-		handleErrors(hasErr)
 	},
 }
 

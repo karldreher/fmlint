@@ -22,6 +22,7 @@ THE SOFTWARE.
 package cmd
 
 import (
+	"log"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -66,7 +67,7 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize()
+	cobra.OnInitialize(initConfig)
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.fmlint.yaml)")
 	rootCmd.PersistentFlags().StringP("folder", "f", "./content", "Folder to recursively scan for frontmatter markdown files.")
 	rootCmd.PersistentFlags().BoolP("warn-only", "", false, "Do not fail if errors are encountered, but print warnings.")
@@ -75,4 +76,29 @@ func init() {
 	//nolint:errcheck
 	viper.BindPFlag("warn", rootCmd.PersistentFlags().Lookup("warn-only"))
 
+}
+
+// initConfig reads in config file and ENV variables if set.
+func initConfig() {
+	if cfgFile != "" {
+		// Use config file from the flag.
+		viper.SetConfigFile(cfgFile)
+	} else {
+		// Find home directory.
+		home, err := os.UserHomeDir()
+		cobra.CheckErr(err)
+
+		// Search config in home directory with name ".fmlint.yaml"
+		viper.AddConfigPath(home)
+		viper.SetConfigType("yaml")
+		viper.SetConfigName(".fmlint")
+	}
+
+	viper.AutomaticEnv() // read in environment variables that match
+
+	// If a config file is found, read it in.
+	if err := viper.ReadInConfig(); err == nil {
+		log.Printf("Using config file: %s", viper.ConfigFileUsed())
+
+	}
 }
