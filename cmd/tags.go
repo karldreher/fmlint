@@ -17,33 +17,38 @@ func init() {
 }
 
 var tagsCmd = &cobra.Command{
-	Use:   "tags",
-	Short: "Lint tags in frontmatter",
-	Long: `Tags are expected to be a YAML list.
-	This subcommand checks to ensure they are sorted alphabetically.`,
+	Use:         "tags",
+	Annotations: map[string]string{"rule-id": "tags-sorted"},
+	Short:       "Lint tag sorting",
+	Long: `Tags in frontmatter are expected to be a YAML list.
+	This command checks to ensure they are sorted alphabetically.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		hasErr := false
-		//recursively walk the "content" directory and find all the files
-		//that have a frontmatter
-		folder := viper.GetString("folder")
-		err := filepath.Walk(folder,
-			func(path string, info os.FileInfo, err error) error {
-				if err != nil {
-					return err
-				}
-				if info.IsDir() {
+		if ruleEnabled("tags-sorted") {
+			hasErr := false
+			//recursively walk the "content" directory and find all the files
+			//that have a frontmatter
+			folder := viper.GetViper().GetString("folder")
+			err := filepath.Walk(folder,
+				func(path string, info os.FileInfo, err error) error {
+					if err != nil {
+						return err
+					}
+					if info.IsDir() {
+						return nil
+					}
+					check := checkTags(path)
+					if !check {
+						hasErr = true
+					}
 					return nil
-				}
-				check := checkTags(path)
-				if !check {
-					hasErr = true
-				}
-				return nil
-			})
-		if err != nil {
-			log.Println(err)
+				})
+			//Handle errors from the filepath walk
+			if err != nil {
+				log.Println(err)
+			}
+			//Handle errors from the checkTags function, if more than one error is present
+			handleErrors(hasErr)
 		}
-		handleErrors(hasErr)
 	},
 }
 
@@ -51,7 +56,6 @@ var tagsCmd = &cobra.Command{
 // Returns true if sorted, false if not.
 func checkTags(file string) bool {
 	var matter struct {
-		Name string   `yaml:"name"`
 		Tags []string `yaml:"tags"`
 	}
 	b, err := os.ReadFile(file)

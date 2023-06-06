@@ -13,7 +13,7 @@ import (
 // When the function is called, it expects a boolean value indicating whether
 // or not an error occurred.
 func handleErrors(hasError bool) {
-	warn := viper.GetString("warn")
+	warn := viper.GetViper().GetString("warn")
 	if hasError && warn != "true" {
 		os.Exit(1)
 	}
@@ -21,4 +21,21 @@ func handleErrors(hasError bool) {
 		log.Println("Warning: 1 or more errors occurred but --warn-only is set.")
 	}
 
+}
+
+// ruleEnabled checks if a rule is enabled.
+// It expects a rule ID as input.
+// Rules are always enabled unless disabled in the config file.
+// Rules are disabled if they are in the yaml config file in the map "disabled_rules"."
+// If the rule is disabled, it returns false.
+// If the rule is enabled, it returns true.
+func ruleEnabled(ruleID string) bool {
+	config := viper.GetViper().GetStringSlice("disabled_rules")
+	for _, rule := range config {
+		if rule == ruleID {
+			log.Printf("Rule \"%s\" is disabled, not linting", ruleID)
+			return false
+		}
+	}
+	return true
 }
