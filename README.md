@@ -9,7 +9,7 @@ Each lint rule is identified with a `rule-id`.  You can find a list of all `rule
 fmlint list
 ```
 ### Developer Info
-Rules, within this program, are identified by a `cobraCmd` Annotation:
+Rules, within this program, are identified by a `cobra.Command` Annotation:
 ```
 	Annotations: map[string]string{"rule-id": "none"},
 ```
