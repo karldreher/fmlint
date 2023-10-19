@@ -13,7 +13,8 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(tagsCmd)
+	// Note, subcommands of "lint" are still cobra.Commands but should be added to lintCmd.
+	lintCmd.AddCommand(tagsCmd)
 }
 
 var tagsCmd = &cobra.Command{
