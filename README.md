@@ -25,7 +25,9 @@ You can learn more about the program with `fmlint --help.`
 
 This expects a directory structure which has Markdown with [Front Matter](https://gohugo.io/content-management/front-matter/), as is typically part of a Hugo content directory.  This tool *should* be compatible with Jekyll content directories as well.  
 
-Currently, the only sub-command available is `tags`.  You can read more about what it does, with `fmlint tags --help`.
+The way to lint front matter with this tool is using `fmlint lint <subcommand>`
+
+Currently, the only `lint` sub-command available is `tags`.  You can read more about what it does, with `fmlint lint tags --help`.
 
 ```bash
 # Assumes a content/ directory below current working directory.  Otherwise, supply it with --folder.
@@ -61,11 +63,11 @@ jobs:
 
       - uses: actions/setup-go@v4
         with:
-          go-version: 1.19
+          go-version: 1.21
 
       - name: Install fmlint
-        run: go install github.com/karldreher/fmlint@v1.1.0
+        run: go install github.com/karldreher/fmlint@latest
         
       - name: Run fmlint
-        run: fmlint tags
+        run: fmlint lint tags
 ```
