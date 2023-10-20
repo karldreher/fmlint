@@ -17,14 +17,14 @@ import (
 // Note, subcommands of "lint" are still cobra.Commands but should be added to lintCmd.
 var lintCmd = &cobra.Command{
 	Use:   "lint",
-	Short: "Execute lint subcommands",
+	Short: "Execute lint subcommands.",
 	Long:  `Lint front matter based on provided rules.  To find avaialble rules, run "fmlint list".`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// if there were no arguments, print usage
 		if len(args) == 0 {
 			fmt.Println("Error: No lint subcommand provided")
 			//nolint:errcheck
-			cmd.Usage()
+			cmd.Help()
 			os.Exit(1)
 		}
 	},
