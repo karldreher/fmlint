@@ -1,5 +1,12 @@
 # fmlint
-Front Matter Lint:  Lint your Markdown Front Matter
+## Front Matter Lint:  Lint your Markdown Front Matter
+
+### Why is this helpful? 
+Tools like Hugo can make static sites very easy to implement, especially with healthy theme support and extensibility. 
+
+A part of what makes Hugo work well is the metadata, known as *front matter*, of the content.  
+
+While front matter is mostly open-ended, there do exist subtle failure modes of this metadata.  The purpose of this tool is to provide some *opinionated* guidance to avoid encountering those failures.
 
 
 # Installation
