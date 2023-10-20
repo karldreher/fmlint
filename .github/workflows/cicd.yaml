@@ -24,6 +24,8 @@ jobs:
           go-version: 1.21.3
       - run: go test -v ./...
   release:
+    # Only perform release on main
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-22.04
     needs: test
     permissions:
