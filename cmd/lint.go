@@ -21,7 +21,7 @@ var lintCmd = &cobra.Command{
 		// if there were no arguments, print usage
 		if len(args) == 0 {
 			cmd.Usage()
-			fmt.Println()
+			fmt.Println("Error: No lint subcommand provided")
 			os.Exit(1)
 		}
 	},
