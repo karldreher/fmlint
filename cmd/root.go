@@ -36,9 +36,7 @@ var rootCmd = &cobra.Command{
 	Use:   "fmlint",
 	Short: "Lint your front-matter markdown files.",
 	Long: `Lint your front-matter markdown files.
-This must be run with a subcommand, as detailed below.
-Currently, the only supported subcommand is "tags".
-  For more information, try 'fmlint tags --help'.
+  For more information, try 'fmlint --help'.
 
 `,
 	// Uncomment the following line if your bare application

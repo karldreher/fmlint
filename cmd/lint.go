@@ -1,11 +1,38 @@
+/*
+Copyright © 2023 NAME HERE <EMAIL ADDRESS>
+*/
 package cmd
 
 import (
+	"fmt"
 	"log"
 	"os"
 
+	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
+
+// lintCmd represents the lint command.
+// By itself this does nothing and exits fatally.
+// Note, subcommands of "lint" are still cobra.Commands but should be added to lintCmd.
+var lintCmd = &cobra.Command{
+	Use:   "lint",
+	Short: "Execute lint subcommands.",
+	Long:  `Lint front matter based on provided rules.  To find avaialble rules, run "fmlint list".`,
+	Run: func(cmd *cobra.Command, args []string) {
+		// if there were no arguments, print usage
+		if len(args) == 0 {
+			fmt.Println("Error: No lint subcommand provided")
+			//nolint:errcheck
+			cmd.Help()
+			os.Exit(1)
+		}
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(lintCmd)
+}
 
 // handleErrors checks if any errors occurred during the execution of the command.
 // If so, it prints the error message and exits the program.
