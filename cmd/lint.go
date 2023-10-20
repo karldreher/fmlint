@@ -20,8 +20,8 @@ var lintCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		// if there were no arguments, print usage
 		if len(args) == 0 {
-			cmd.Usage()
 			fmt.Println("Error: No lint subcommand provided")
+			cmd.Usage()
 			os.Exit(1)
 		}
 	},
