@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -65,4 +66,36 @@ func ruleEnabled(ruleID string) bool {
 		}
 	}
 	return true
+}
+
+// A function which takes a filepath and returns a boolean value.
+type lintRule func(path string) bool
+
+// Generic function to walk directories and evaluate lint rules.
+// Requires that a lint rule function is passed to it.  This should be a function which
+// returns true/false based on rule evaluation.
+func evaluateRules(fn lintRule) {
+	folder := viper.GetViper().GetString("folder")
+	//Sets hasErr to false, until altered by individual lint rules
+	hasErr := false
+	err := filepath.Walk(folder,
+		func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			if info.IsDir() {
+				return nil
+			}
+			check := fn(path)
+			if !check {
+				hasErr = true
+			}
+			return nil
+		})
+	//Handle errors from the filepath walk
+	if err != nil {
+		log.Println(err)
+	}
+	//Handle errors from the lint function, if more than zero errors are present
+	handleErrors(hasErr)
 }
