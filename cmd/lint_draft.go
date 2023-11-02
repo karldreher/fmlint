@@ -43,7 +43,7 @@ func checkDraft(file string) bool {
 	if err != nil {
 		log.Println(rest, err)
 	}
-	if matter.Draft == true {
+	if matter.Draft {
 		log.Printf("Draft mode enabled. {\"file\": %q, \"draft\": %t}", file, matter.Draft)
 		return false
 	}
