@@ -26,21 +26,7 @@ See [Releases](https://github.com/karldreher/fmlint/releases) and download the a
 ## Usage
 Once installed, the program can be run from a command line.
 
-You can learn more about the program with `fmlint --help.`
-
-### Usage - Linting Front Matter
-
-This expects a directory structure which has Markdown with [Front Matter](https://gohugo.io/content-management/front-matter/), as is typically part of a Hugo content directory.  This tool *should* be compatible with Jekyll content directories as well.  
-
-The way to lint front matter with this tool is using `fmlint lint <subcommand>`.
-
-Currently, the only `lint` sub-command available is `tags`.  You can read more about what it does, with `fmlint lint tags --help`.
-
-```bash
-# Assumes a content/ directory below current working directory.  Otherwise, supply it with --folder.
-fmlint tags
-```
-
+You can learn more about the program with `fmlint --help.`  `--help` is available from many contexts and will give you the most information when used interactively. 
 
 ### Rule IDs
 Each lint rule is identified with a `rule-id`.  You can find a list of all `rule-id`s, with the `list` command:
@@ -48,6 +34,17 @@ Each lint rule is identified with a `rule-id`.  You can find a list of all `rule
 ```
 fmlint list
 ```
+
+Each entry will have a brief description of the lint command.  For a long one, try `fmlint lint <command> --help`.
+
+
+### Usage - Linting Front Matter
+
+This expects a directory structure which has Markdown with [Front Matter](https://gohugo.io/content-management/front-matter/), as is typically part of a Hugo content directory.  This tool *should* be compatible with Jekyll content directories as well.  
+
+
+Using a command identified by [`fmlint list`](#rule-ids), you can then use than lint rule using `fmlint lint <command>`
+
 
 ## Usage - Github Actions
 This tool is **built** with CI environments in mind.  

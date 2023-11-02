@@ -4,12 +4,10 @@ import (
 	"bytes"
 	"log"
 	"os"
-	"path/filepath"
 	"sort"
 
 	"github.com/adrg/frontmatter"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 func init() {
@@ -25,30 +23,9 @@ var tagsCmd = &cobra.Command{
 	This command checks to ensure they are sorted alphabetically.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if ruleEnabled("tags-sorted") {
-			hasErr := false
 			//recursively walk the "content" directory and find all the files
 			//that have a frontmatter
-			folder := viper.GetViper().GetString("folder")
-			err := filepath.Walk(folder,
-				func(path string, info os.FileInfo, err error) error {
-					if err != nil {
-						return err
-					}
-					if info.IsDir() {
-						return nil
-					}
-					check := checkTags(path)
-					if !check {
-						hasErr = true
-					}
-					return nil
-				})
-			//Handle errors from the filepath walk
-			if err != nil {
-				log.Println(err)
-			}
-			//Handle errors from the checkTags function, if more than one error is present
-			handleErrors(hasErr)
+			evaluateRules(checkTags)
 		}
 	},
 }

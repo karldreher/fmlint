@@ -39,8 +39,7 @@ var rootCmd = &cobra.Command{
   For more information, try 'fmlint --help'.
 
 `,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
+
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
 			err := cmd.Help()
