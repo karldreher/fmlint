@@ -13,7 +13,7 @@ import (
 var draftCmd = &cobra.Command{
 	Use:         "draft",
 	Annotations: map[string]string{"rule-id": "draft-enabled"},
-	Short:       "Checks that draft is not set to \"true\" for all files.",
+	Short:       "Checks that \"draft:\" is not set to \"true\"",
 	Long: `Draft mode should not be enabled.  
 The check is designed to avoid drafts being enabled prior to the release of the site.  
 If draft: true, this lint rule will trigger a failure.  
