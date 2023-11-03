@@ -32,8 +32,7 @@ func init() {
 // Returns true if draft is not set to true, otherwise false.
 func checkDraft(file string) bool {
 	var matter struct {
-		Title string `yaml:"title"`
-		Draft bool   `yaml:"draft"`
+		Draft bool `yaml:"draft"`
 	}
 	b, err := os.ReadFile(file)
 	if err != nil {
