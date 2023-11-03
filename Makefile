@@ -1,4 +1,8 @@
-.PHONY: new-lint-rule
+.PHONY: new-lint-rule default
+
+default: 
+# Do nothing, this makefile is only for convenience in creating new rules
+	@ exit
 
 new-lint-rule:
 	@echo "Enter a new lint command name: "
