@@ -27,3 +27,14 @@ func Test_failing_checkDraft(t *testing.T) {
 		t.Fail()
 	}
 }
+
+// Checks that a file that does not have draft set does not trigger the rule.
+func Test_passing_checkDraft_noDraft(t *testing.T) {
+	// Redirect log output to /dev/null to avoid test result pollution.
+	null, _ := os.Open(os.DevNull)
+	log.SetOutput(null)
+	if checkDraft("../test/lint_draft/draft_not_set.md") == false {
+		t.Error("Expected no_draft.md to pass but it failed")
+		t.Fail()
+	}
+}
