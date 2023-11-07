@@ -5,7 +5,7 @@ import (
 )
 
 // All sub-commands added to the lintCmd
-// should have a rule-id annotation.  In the case that a  command does not have
+// should have a rule-id annotation.  In the case that a command does not have
 // a "categorizable" rule, rule-id should be annotated with "none".
 func Test_lintCmd_rule_id_annotations(t *testing.T) {
 	cmdList := lintCmd.Commands()
