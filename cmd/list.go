@@ -22,6 +22,9 @@ var listCmd = &cobra.Command{
 			if command.Annotations != nil {
 				//If command.Annotations has key "rule-id", print it
 				if _, ok := command.Annotations["rule-id"]; ok {
+					if command.Annotations["rule-id"] == "none" {
+						continue
+					}
 					fmt.Printf("%s \t\t %s \t\t %s\n", command.Name(), command.Annotations["rule-id"], command.Short)
 				}
 			}
