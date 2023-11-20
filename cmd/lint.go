@@ -1,6 +1,3 @@
-/*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
@@ -8,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -38,17 +36,27 @@ func init() {
 // handleErrors checks if any errors occurred during the execution of the command.
 // If so, it prints the error message and exits the program.
 // If --warn-only is set, it prints the error message and continues.
+// If lint was called with "lint all", it does not exit and returns an error instead.
 // When the function is called, it expects a boolean value indicating whether
 // or not an error occurred.
 func handleErrors(hasError bool) {
 	warn := viper.GetViper().GetString("warn")
-	if hasError && warn != "true" {
+	//lint_all only is set by allCmd.
+	lint_all := viper.GetViper().GetBool("lint_all")
+	if hasError && !lint_all && warn != "true" {
 		os.Exit(1)
 	}
 	if hasError && warn == "true" {
 		log.Println("Warning: 1 or more errors occurred but --warn-only is set.")
 	}
-
+	if hasError && lint_all {
+		// Special viper setting used internally.  Not exposed as a flag.
+		// While it could technically be used through a config file,
+		// it would be abnormal and not as-designed.
+		// If lint_all is set, it is considered a "soft" failure per-rule, but then
+		// allCmd will register the failure and exit abnormally.
+		viper.Set("lint_all_fail", true)
+	}
 }
 
 // ruleEnabled checks if a rule is enabled.
@@ -94,7 +102,12 @@ func evaluateRules(fn lintRule) {
 		})
 	//Handle errors from the filepath walk
 	if err != nil {
+		if strings.HasSuffix(err.Error(), ": no such file or directory") {
+			log.Printf("Error: Directory %s does not exist", folder)
+			os.Exit(1)
+		}
 		log.Println(err)
+
 	}
 	//Handle errors from the lint function, if more than zero errors are present
 	handleErrors(hasErr)

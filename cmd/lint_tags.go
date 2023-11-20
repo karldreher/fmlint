@@ -23,8 +23,6 @@ var tagsCmd = &cobra.Command{
 	This command checks to ensure they are sorted alphabetically.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if ruleEnabled("tags-sorted") {
-			//recursively walk the "content" directory and find all the files
-			//that have a frontmatter
 			evaluateRules(checkTags)
 		}
 	},
