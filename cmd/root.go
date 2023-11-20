@@ -36,7 +36,7 @@ var rootCmd = &cobra.Command{
 	Use:   "fmlint",
 	Short: "Lint your markdown front-matter.",
 	Long: `Lint your markdown front-matter.
-For more information, try '--help' after any sub-command..
+For more information, try '--help' after any sub-command.
 
 `,
 
