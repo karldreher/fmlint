@@ -25,12 +25,6 @@ var lintCmd = &cobra.Command{
 			cmd.Help()
 			os.Exit(1)
 		}
-		// if all was specified,
-		if cmd.CalledAs() == "lint all" {
-			//lint all
-			println("hello world")
-
-		}
 	},
 }
 
