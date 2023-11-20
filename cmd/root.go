@@ -34,9 +34,9 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "fmlint",
-	Short: "Lint your front-matter markdown files.",
-	Long: `Lint your front-matter markdown files.
-  For more information, try 'fmlint --help'.
+	Short: "Lint your markdown front-matter.",
+	Long: `Lint your markdown front-matter.
+For more information, try '--help' after any sub-command..
 
 `,
 
