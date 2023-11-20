@@ -12,7 +12,9 @@ var allCmd = &cobra.Command{
 	Use:         "all",
 	Annotations: map[string]string{"rule-id": "none"},
 	Short:       "Run all lint commands.",
-	Long:        ``,
+	Long: `Allows running all lint commands at once.  This is not reccomended unless you have gone over 
+all available lint rules and configured those which are unwanted using a config file.
+To do this, you should set 'disable_rules:' within a yaml config file, and specify it using --config. `,
 	Run: func(cmd *cobra.Command, args []string) {
 		viper.Set("lint_all", true)
 		//RUn all commands with rule-id annotation.
