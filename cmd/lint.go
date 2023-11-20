@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -101,7 +102,12 @@ func evaluateRules(fn lintRule) {
 		})
 	//Handle errors from the filepath walk
 	if err != nil {
+		if strings.HasSuffix(err.Error(), ": no such file or directory") {
+			log.Printf("Error: Directory %s does not exist", folder)
+			os.Exit(1)
+		}
 		log.Println(err)
+
 	}
 	//Handle errors from the lint function, if more than zero errors are present
 	handleErrors(hasErr)
