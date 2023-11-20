@@ -45,6 +45,17 @@ This expects a directory structure which has Markdown with [Front Matter](https:
 
 Using a command identified by [`fmlint list`](#rule-ids), you can then use than lint rule using `fmlint lint <command>`
 
+### Usage - Disabling Lint Rules
+To disable a lint rule, configure a `yaml` file with a list of [`rule-id`s](#rule-ids) which you want to disable from checking.  
+#### Example
+config.yaml
+```yaml
+disabled_rules:
+  - "tags-sorted"
+  - "draft-enabled"
+```
+
+Then, pass this in execution, e.g. `fmlint lint all --config config.yaml`.  
 
 ## Usage - Github Actions
 This tool is **built** with CI environments in mind.  
