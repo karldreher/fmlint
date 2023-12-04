@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 package main
 
-import "github.com/karldreher/fmlint/cmd"
+import "github.com/karldreher/fmlint/v2/cmd"
 
 func main() {
 	cmd.Execute()
