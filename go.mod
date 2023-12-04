@@ -1,4 +1,4 @@
-module github.com/karldreher/fmlint
+module github.com/karldreher/fmlint/v2
 
 go 1.21
 
