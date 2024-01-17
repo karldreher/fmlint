@@ -25,3 +25,6 @@ content
 
 # Built binary file
 fmlint
+
+# Goreleaser artifacts
+dist/
