@@ -28,7 +28,7 @@ jobs:
           install-only: true
       - run: go test -v ./...
       - name: Test Build
-        run: goreleaser build --single-target --skip validate --clean 
+        run: goreleaser build --single-target --skip validate --clean --snapshot
   release:
     # Only perform release on main
     if: github.ref == 'refs/heads/main'
