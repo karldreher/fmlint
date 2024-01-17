@@ -18,7 +18,8 @@
 # vendor/
 
 # Go workspace file
-go.work
+## TBD- i am not sure on best practice of committing go.work files in v2+ module envs
+go.work*
 
 #Hugo directory, for testing usage
 content

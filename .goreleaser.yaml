@@ -1,0 +1,7 @@
+# builds:
+#   - id: v2
+#     main: ./v2/main.go
+#   - id: v3
+#     main: ./v3/main.go
+gomod:
+  proxy: true
