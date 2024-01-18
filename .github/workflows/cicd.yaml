@@ -28,6 +28,8 @@ jobs:
         with:
           hooks: goreleaser
           dry: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   release:
     # Only perform release on main
     if: github.ref == 'refs/heads/main'
