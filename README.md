@@ -4,7 +4,7 @@
 ### Why is this helpful? 
 Tools like Hugo can make static websites very easy to implement, especially with healthy theme support and extensibility. 
 
-A part of what makes Hugo work well is the metadata, known as *front matter*, of the content.  
+A part of what makes static site generators (SSGs) work well is the metadata, known as *front matter*, of the content.  
 
 While front matter is mostly open-ended, there do exist subtle failure modes of this metadata.  The purpose of this tool is to provide some *opinionated* guidance to avoid encountering those failures.
 
