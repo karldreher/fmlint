@@ -12,25 +12,25 @@ import (
 
 func init() {
 	// Note, subcommands of "lint" are still cobra.Commands but should be added to lintCmd.
-	lintCmd.AddCommand(tagsCmd)
+	lintCmd.AddCommand(tagsSortCmd)
 }
 
-var tagsCmd = &cobra.Command{
-	Use:         "tags",
+var tagsSortCmd = &cobra.Command{
+	Use:         "tags-sort",
 	Annotations: map[string]string{"rule-id": "tags-sorted"},
 	Short:       "Lint tag sorting",
 	Long: `Tags in frontmatter are expected to be a YAML list.
 	This command checks to ensure they are sorted alphabetically.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if ruleEnabled("tags-sorted") {
-			evaluateRules(checkTags)
+			evaluateRules(checkTagSort)
 		}
 	},
 }
 
 // checkTags checks if the tags are sorted alphabetically.
 // Returns true if sorted, false if not.
-func checkTags(file string) bool {
+func checkTagSort(file string) bool {
 	var matter struct {
 		Tags []string `yaml:"tags"`
 	}
