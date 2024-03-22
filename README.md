@@ -2,26 +2,17 @@
 ## Front Matter Lint:  Lint your Markdown Front Matter
 
 ### Why is this helpful? 
-Tools like Hugo can make static sites very easy to implement, especially with healthy theme support and extensibility. 
+Tools like Hugo can make static websites very easy to implement, especially with healthy theme support and extensibility. 
 
-A part of what makes Hugo work well is the metadata, known as *front matter*, of the content.  
+A part of what makes static site generators (SSGs) work well is the metadata, known as *front matter*, of the content.  
 
 While front matter is mostly open-ended, there do exist subtle failure modes of this metadata.  The purpose of this tool is to provide some *opinionated* guidance to avoid encountering those failures.
 
 
 # Installation
-This tool can be installed either with `go install`, or through a binary release download.  
+## Releases
 
-### `go install`
-```bash
-# ensure that $GOPATH is set!
-go install github.com/karldreher/fmlint@latest
-# If desired, replace @latest with any specific tag.
-```
-
-### Releases
-
-See [Releases](https://github.com/karldreher/fmlint/releases) and download the appropriate one for your platform.  
+See [Releases](https://github.com/karldreher/fmlint/releases) and download the appropriate one for your platform.  Place this in a directory resolvable in `PATH`, or run it relative to current working dir (`./fmlint`).
 
 ## Usage
 Once installed, the program can be run from a command line.
@@ -66,23 +57,22 @@ name: Lint
 on:
   pull_request:
     types:
-      - opened
-      - edited
       - synchronize
 
 jobs:  
   lint-front-matter:
     runs-on: ubuntu-22.04
-    steps: 
+    steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v4
-        with:
-          go-version: 1.21
+      - name: Download fmlint
+        # It is reccomended to pin the version and download the binary.
+        # however, with the addition of another preceding step, you could get the latest version instead.
+        run: curl -o fmlint.tar.gz -LO https://github.com/karldreher/fmlint/releases/download/v2.2.1/fmlint_2.2.1_linux_amd64.tar.gz
 
       - name: Install fmlint
-        run: go install github.com/karldreher/fmlint@latest
-        
+        run: tar -xvf fmlint.tar.gz fmlint
+
       - name: Run fmlint
-        run: fmlint lint tags
+        run: ./fmlint lint all
 ```
