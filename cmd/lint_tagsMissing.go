@@ -45,7 +45,6 @@ func checkTagsPresent(file string) bool {
 	if matter.Tags != nil {
 		// If any item in the tags list is empty, return false.
 		for _, tag := range matter.Tags {
-			log.Println(tag, matter.Tags, len(tag))
 			if len(tag) == 0 {
 				log.Printf("Tags are not present.  {\"file\": %q, \"tags\": %q}", file, matter.Tags)
 				return false
