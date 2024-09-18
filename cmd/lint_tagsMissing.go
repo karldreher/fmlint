@@ -21,9 +21,7 @@ var tagsMissingCmd = &cobra.Command{
 	Long: `Tags in frontmatter are expected to be a YAML list.
 	This command checks to ensure at least one tag is present.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if ruleEnabled("tags-sorted") {
-			evaluateRules(checkTagsPresent)
-		}
+		evaluateRules(checkTagsPresent)
 	},
 }
 

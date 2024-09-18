@@ -22,9 +22,7 @@ var tagsSortCmd = &cobra.Command{
 	Long: `Tags in frontmatter are expected to be a YAML list.
 	This command checks to ensure they are sorted alphabetically.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if ruleEnabled("tags-sorted") {
-			evaluateRules(checkTagSort)
-		}
+		evaluateRules(checkTagSort)
 	},
 }
 
