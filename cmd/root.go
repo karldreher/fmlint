@@ -85,15 +85,29 @@ func initConfig() {
 	if cfgFile != "" {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
+		_, err := os.Stat(cfgFile)
+		// If the specified file does not exist, fail.
+		cobra.CheckErr(err)
+
 	} else {
+		// use the working directory as a primary search path
+		pwd, err := os.Getwd()
+		cobra.CheckErr(err)
 		// Find home directory.
 		home, err := os.UserHomeDir()
 		cobra.CheckErr(err)
 
-		// Search config in home directory with name ".fmlint.yaml"
+		// Search directories for a config file.
+		// The first added paths take precedence.
+		viper.AddConfigPath(pwd)
 		viper.AddConfigPath(home)
+
 		viper.SetConfigType("yaml")
 		viper.SetConfigName(".fmlint")
+		// when the config file is found, print it
+		if viper.ConfigFileUsed() != "" {
+			fmt.Printf("Config file name: %s\n", viper.ConfigFileUsed())
+		}
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match

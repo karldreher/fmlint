@@ -8,6 +8,8 @@ on:
       - '**'
 jobs:
   lint:
+    # no need to lint on main
+    if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
