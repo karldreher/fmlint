@@ -19,9 +19,7 @@ The check is designed to avoid drafts being enabled prior to the release of the 
 If draft: true, this lint rule will trigger a failure.  
 If draft: false, this lint rule will pass.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if ruleEnabled("draft-enabled") {
-			evaluateRules(checkDraft)
-		}
+		evaluateRules(checkDraft)
 	},
 }
 

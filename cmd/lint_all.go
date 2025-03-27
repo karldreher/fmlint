@@ -21,7 +21,11 @@ To do this, you should set 'disable_rules:' within a yaml config file, and speci
 		cmdList := lintCmd.Commands()
 		for _, command := range cmdList {
 			if command.Annotations["rule-id"] != "none" {
-				command.Run(cmd, args)
+				ruleId := command.Annotations["rule-id"]
+				// Only run the command if the rule is enabled.
+				if ruleEnabled(ruleId) {
+					command.Run(cmd, args)
+				}
 			}
 
 		}
