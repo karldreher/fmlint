@@ -14,21 +14,21 @@ var listCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		//Get all commands
 		cmdList := lintCmd.Commands()
-		fmt.Printf("%s \t %s \t\t %s\n", "Command", "Rule-ID", "Short Description")
+		fmt.Printf("%-15s %-15s %s\n", "Command", "Rule-ID", "Short Description")
 		//print a separator
-		fmt.Println("--------------------------------------------------------------------------")
+		fmt.Println("--------------------------------------------------")
 		for _, command := range cmdList {
-
 			if command.Annotations != nil {
-				//If command.Annotations has key "rule-id", print it
 				if _, ok := command.Annotations["rule-id"]; ok {
 					if command.Annotations["rule-id"] == "none" {
 						continue
 					}
-					fmt.Printf("%s \t\t %s \t\t %s\n", command.Name(), command.Annotations["rule-id"], command.Short)
+					fmt.Printf("%-15s %-15s %s\n",
+						command.Name(),
+						command.Annotations["rule-id"],
+						command.Short)
 				}
 			}
-
 		}
 	},
 }
